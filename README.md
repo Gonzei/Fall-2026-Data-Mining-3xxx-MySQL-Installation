@@ -40,6 +40,15 @@ shows you how to check in about ten seconds.
 1. **MySQL Community Server 26.7.0** — [mysql-26.7.0-macos15-x86_64.dmg](https://dev.mysql.com/get/Downloads/MySQL-26.7/mysql-26.7.0-macos15-x86_64.dmg)
 2. **MySQL Workbench 8.0.47** — [mysql-workbench-community-8.0.47-macos-x86_64.dmg](https://downloads.mysql.com/archives/get/p/8/file/mysql-workbench-community-8.0.47-macos-x86_64.dmg)
 
+### Sakila sample database (all platforms)
+
+The practice database used in this course — [sakila-db.zip](https://downloads.mysql.com/docs/sakila-db.zip) (~700 KB).
+
+**You can add this at any time after installing MySQL** — it's a separate step, and
+you never need to reinstall MySQL to get it. If your copy gets broken or messy, you
+can reload it as many times as you like; the setup script wipes the old copy and
+rebuilds a clean one automatically. Part 4 of the guide covers this.
+
 ---
 
 ## ⚠️ Two things to know before you start

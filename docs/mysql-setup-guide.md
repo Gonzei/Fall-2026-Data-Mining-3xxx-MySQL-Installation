@@ -11,8 +11,11 @@ subtitle: "A step-by-step guide for Windows and Mac"
 2. Install **MySQL Workbench** — the app you actually use.
 3. Make up a **root password** during setup, and write it down.
 4. Open Workbench, connect, and run one test command.
+5. Load the **Sakila** sample database, so you have something to practise on.
 
 Budget **30–45 minutes**, most of it waiting for downloads.
+
+Steps 1–4 are the installation. **Step 5 can be done separately, at any time afterwards** — see Part 4.
 
 **If you get stuck at any point, that is normal.** Jump to *When Something Goes Wrong* near the end — almost every problem is on that list.
 
@@ -465,7 +468,146 @@ DROP DATABASE test_db;
 
 ---
 
-# Part 4 — When Something Goes Wrong
+# Part 4 — Add the Sakila Sample Database
+
+Installing MySQL gives you a working but **completely empty** database. Sakila is a ready-made practice database that your course uses so that everyone is working with the same information.
+
+It contains the records of a fictional DVD rental business — films, actors, customers, staff, stores, rentals, and payments. About 1,000 films and 16,000 rentals, all realistic enough to write genuine queries against.
+
+> ## ✅ You can do this at any time
+>
+> **Adding Sakila is completely separate from installing MySQL.** You do not need to reinstall anything, and you do not need to have done this during setup.
+>
+> Installed MySQL last week and only now realised you need Sakila? Fine. Just start at Step 1 below.
+>
+> Loaded it and made a mess of it? Also fine — see *Resetting Sakila* at the end of this Part. It is designed to be re-run.
+
+## Step 1 — Download the file
+
+Download this (it's small, about 700 KB — a few seconds):
+
+**https://downloads.mysql.com/docs/sakila-db.zip**
+
+## Step 2 — Unzip it
+
+- **Windows:** right-click the file → **Extract All…** → **Extract**
+- **Mac:** double-click the file
+
+You'll get a folder called **`sakila-db`** containing three files:
+
+| File | What it's for |
+|---|---|
+| `sakila-schema.sql` | Builds the empty tables — **run this first** |
+| `sakila-data.sql` | Fills those tables with the data — **run this second** |
+| `sakila.mwb` | An optional diagram of the database (see the end of this Part) |
+
+> ⚠️ **Windows users:** you must actually extract the folder. Windows lets you double-click *into* a `.zip` and open files without unzipping, and doing that here causes confusing failures later. If the window you're looking at still says "Compressed Folder," extract it first.
+
+**Remember where you put the folder.** You'll need to find it twice in a moment.
+
+## Step 3 — Run the schema file (builds the tables)
+
+1. Open **MySQL Workbench** and connect as usual.
+2. From the menu, choose **File → Open SQL Script…**
+3. Find your `sakila-db` folder and open **`sakila-schema.sql`**.
+4. A tab opens full of commands. **You do not need to read or understand them.**
+5. Click the **lightning bolt** (⚡) to run the whole file.
+6. Wait a few seconds. You'll see a list of green ticks at the bottom.
+
+This creates the database and its empty tables.
+
+## Step 4 — Run the data file (fills in the information)
+
+1. Choose **File → Open SQL Script…** again.
+2. This time open **`sakila-data.sql`**.
+3. Click the **lightning bolt** (⚡).
+4. **This one takes longer** — anywhere from 10 seconds to about a minute. Workbench may look frozen while it works. Let it finish.
+
+> ### 🔑 The order matters
+>
+> **Schema first, then data.** Always.
+>
+> The data file assumes the tables already exist. Running it first produces an error like *"Table 'sakila.actor' doesn't exist."* If that happens, just run the schema file and then the data file, in that order.
+
+## Step 5 — Check that it worked
+
+1. Look at the **Schemas** panel on the left side of Workbench.
+2. Click the small refresh arrow (⟳) at the top of that panel.
+3. **`sakila`** should now appear in the list.
+
+Now prove it has data in it. Click into a query tab, type this, and hit the lightning bolt:
+
+```
+USE sakila;
+SELECT COUNT(*) FROM film;
+```
+
+**You should get `1000`.** If you do, Sakila is fully installed and you're ready for class.
+
+For a fuller look, try:
+
+```
+USE sakila;
+SHOW FULL TABLES;
+```
+
+That should list **23 rows** — 13 tables plus 10 views.
+
+## Resetting Sakila (or adding it again later)
+
+**Yes, you can re-add Sakila as many times as you like.** It is built to be reinstalled.
+
+The schema file begins by deleting any existing copy of `sakila` and building a fresh one. So to reset a broken, half-loaded, or accidentally-modified database, you simply:
+
+1. Run **`sakila-schema.sql`** again
+2. Run **`sakila-data.sql`** again
+
+That's the whole procedure. There's nothing to uninstall, and no leftovers to clean up — you end up with a clean, correct copy every time.
+
+> ⚠️ **Resetting erases anything you changed inside `sakila`.** If you've done coursework that modified the data, and you need it, save a copy first or check with your instructor.
+>
+> Your own **query files** are not affected — those are `.sql` files saved on your computer, entirely separate from the database. Resetting Sakila never touches them.
+
+## Common Sakila problems
+
+**"Error Code: 1146. Table 'sakila.actor' doesn't exist"**
+
+You ran the data file before the schema file. Run `sakila-schema.sql` first, then `sakila-data.sql`.
+
+**"Error Code: 1046. No database selected"**
+
+You probably ran only a highlighted piece of the file rather than the whole thing. Make sure nothing is selected in the editor, then click the lightning bolt again. (Workbench runs only the highlighted text if you have some highlighted.)
+
+**"Unknown database 'sakila'"**
+
+The schema file didn't finish successfully. Run `sakila-schema.sql` again and watch for red error rows at the bottom.
+
+**"Lost connection to MySQL server during query" while loading the data**
+
+The data file took longer than Workbench's patience. Raise the limit:
+
+- **Windows:** **Edit → Preferences → SQL Editor**
+- **Mac:** **MySQLWorkbench → Settings (or Preferences) → SQL Editor**
+
+Find **DBMS connection read timeout interval (in seconds)**, change it to `600`, click **OK**, then **fully close and reopen Workbench** before trying again.
+
+**`sakila` doesn't appear in the Schemas list**
+
+Click the refresh arrow (⟳) at the top of the Schemas panel. Workbench doesn't notice new databases on its own.
+
+**Everything ran but `SELECT COUNT(*) FROM film;` returns 0**
+
+The schema loaded but the data didn't. Run `sakila-data.sql` again and watch the bottom panel for errors.
+
+## Optional: see the database as a diagram
+
+The third file, `sakila.mwb`, is a visual map showing every table and how they connect. It's genuinely useful when you're trying to work out which table joins to which.
+
+In Workbench, choose **File → Open Model…** and pick `sakila.mwb`.
+
+---
+
+# Part 5 — When Something Goes Wrong
 
 **Something going wrong is normal.** Installing a database is one of the fussiest things people do on a laptop, and experienced programmers hit these same errors. Nothing here means you broke your computer or that you're bad at this.
 
@@ -613,7 +755,7 @@ Harmless. Ignore it. Writing and running queries works normally.
 
 ---
 
-# Part 5 — Using It Day to Day
+# Part 6 — Using It Day to Day
 
 **You do not need to reinstall anything ever again.** After setup, this is your routine:
 
@@ -641,6 +783,8 @@ Harmless. Ignore it. Writing and running queries works normally.
 | **Schema** | Another word for a database. MySQL uses both words interchangeably. |
 | **Query** | A command you write, like `SELECT VERSION();`. |
 | **Result Grid** | The table of results that appears at the bottom after you run a query. |
+| **Sakila** | The practice database used in this course — a fictional DVD rental business. Can be added or reset at any time. |
+| **Script** (`.sql` file) | A file full of SQL commands that you can run all at once, instead of typing them one by one. |
 
 ---
 
@@ -653,6 +797,8 @@ Before your next class, confirm all of these:
 - [ ] My root password is **written down somewhere I won't lose it**
 - [ ] Workbench opens and I can click into my connection without an error
 - [ ] Running `SELECT VERSION();` gives me a version number
+- [ ] **`sakila` appears in my Schemas list**
+- [ ] Running `USE sakila; SELECT COUNT(*) FROM film;` gives me **1000**
 
 ## If you're still stuck
 
