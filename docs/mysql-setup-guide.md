@@ -3,6 +3,19 @@ title: "Installing MySQL and MySQL Workbench"
 subtitle: "A step-by-step guide for Windows and Mac"
 ---
 
+# Start Here
+
+**The whole job in four lines:**
+
+1. Install **MySQL Server** — the database. You will never open it.
+2. Install **MySQL Workbench** — the app you actually use.
+3. Make up a **root password** during setup, and write it down.
+4. Open Workbench, connect, and run one test command.
+
+Budget **30–45 minutes**, most of it waiting for downloads.
+
+**If you get stuck at any point, that is normal.** Jump to *When Something Goes Wrong* near the end — almost every problem is on that list.
+
 # Before You Start
 
 You need to install **two separate programs**. They are not the same thing, and you need both.
@@ -14,23 +27,36 @@ You need to install **two separate programs**. They are not the same thing, and 
 
 **Important:** Installing only Workbench will not work. Workbench is just a window into the Server — with no Server installed, it has nothing to connect to.
 
-## The exact files you need
+## The exact files you need — with direct links
 
-Your instructor has specified these versions. If in doubt, match these.
+Your instructor has specified these versions. Match them.
 
-**Windows**
+**These links start the download immediately.** They skip the "sign in or create an Oracle account" page entirely — you do not need an account.
 
-| # | Product | File name |
+### Windows
+
+| # | Product | Direct download |
 |---|---|---|
-| 1 | MySQL Community Server | `mysql-26.7.0-winx64.msi` |
-| 2 | MySQL Workbench | `mysql-workbench-community-8.0.47-winx64.msi` |
+| 1 | MySQL Community Server 26.7.0 | [`mysql-26.7.0-winx64.msi`](https://dev.mysql.com/get/Downloads/MySQL-26.7/mysql-26.7.0-winx64.msi) |
+| 2 | MySQL Workbench 8.0.47 | [`mysql-workbench-community-8.0.47-winx64.msi`](https://downloads.mysql.com/archives/get/p/8/file/mysql-workbench-community-8.0.47-winx64.msi) |
 
-**Mac** — the same two products, in the Mac equivalents that match your computer's chip (Part 2, Step 1 shows you how to check):
+### Mac — Apple Silicon (M1/M2/M3/M4)
 
-| # | Product | File name looks like |
+**Check your chip first** — Part 2, Step 1 shows you how, and it takes ten seconds.
+
+| # | Product | Direct download |
 |---|---|---|
-| 1 | MySQL Community Server | `mysql-26.7.0-macos15-arm64.dmg` (or `-x86_64.dmg`) |
-| 2 | MySQL Workbench | `mysql-workbench-community-8.0.47-macos-arm64.dmg` (or `-x86_64.dmg`) |
+| 1 | MySQL Community Server 26.7.0 | [`mysql-26.7.0-macos15-arm64.dmg`](https://dev.mysql.com/get/Downloads/MySQL-26.7/mysql-26.7.0-macos15-arm64.dmg) |
+| 2 | MySQL Workbench 8.0.47 | [`mysql-workbench-community-8.0.47-macos-arm64.dmg`](https://downloads.mysql.com/archives/get/p/8/file/mysql-workbench-community-8.0.47-macos-arm64.dmg) |
+
+### Mac — Intel
+
+| # | Product | Direct download |
+|---|---|---|
+| 1 | MySQL Community Server 26.7.0 | [`mysql-26.7.0-macos15-x86_64.dmg`](https://dev.mysql.com/get/Downloads/MySQL-26.7/mysql-26.7.0-macos15-x86_64.dmg) |
+| 2 | MySQL Workbench 8.0.47 | [`mysql-workbench-community-8.0.47-macos-x86_64.dmg`](https://downloads.mysql.com/archives/get/p/8/file/mysql-workbench-community-8.0.47-macos-x86_64.dmg) |
+
+> **Printed copy, or a link that won't open?** The step-by-step sections that follow walk you through the download pages by hand, so you can always get there without these links.
 
 > **Why are the version numbers so different?** The Server is version **26.7.0** and Workbench is version **8.0.47**. That looks like a mistake, but it isn't — the two programs are numbered on separate schedules. They work together fine.
 >
