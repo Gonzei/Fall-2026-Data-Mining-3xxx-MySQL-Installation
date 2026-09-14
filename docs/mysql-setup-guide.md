@@ -443,7 +443,9 @@ Do this on both Windows and Mac. It takes one minute and proves everything is in
 SELECT VERSION();
 ```
 
-3. Click the **lightning bolt** icon above the box. Or press **Ctrl + Enter** on Windows, **⌘ + Enter** on Mac.
+3. Run it. The reliable way is the menu: **Query → Execute (All or Selection)**.
+    - Keyboard shortcut: **Ctrl + Shift + Enter** (Windows) or **⌘ + Shift + Enter** (Mac)
+    - There is also a **lightning bolt** icon above the box that does the same thing — but note there are *two* lightning bolts side by side, and you want the **first** one. Part 4 explains the difference. Until then, the menu is the safe choice.
 4. A **Result Grid** appears at the bottom showing a version number, such as `26.7.0`.
 
 **If you see a version number, your installation is complete and working.** Congratulations.
@@ -456,7 +458,7 @@ Still in the same box, delete what you typed and enter:
 CREATE DATABASE test_db;
 ```
 
-Run it with the lightning bolt. Then look at the **Schemas** panel on the left side and click the small refresh arrow (⟳). You should now see **test_db** in the list.
+Run it the same way (**Query → Execute (All or Selection)**). Then look at the **Schemas** panel on the left side and click the small refresh arrow (⟳). You should now see **test_db** in the list.
 
 ("Schema" is just MySQL's word for a database. You'll see both words used to mean the same thing.)
 
@@ -505,23 +507,102 @@ You'll get a folder called **`sakila-db`** containing three files:
 
 **Remember where you put the folder.** You'll need to find it twice in a moment.
 
+## Important: there are TWO lightning bolts, and they do different things
+
+This trips up almost everyone, so read this before Step 3.
+
+Above the white editing area is a row of small icons. **Two of them are lightning bolts, sitting right next to each other**, and they are not interchangeable:
+
+| Icon | What it does | When you want it |
+|---|---|---|
+| The **first** lightning bolt — plain | Runs the **whole file** | **This one.** Loading Sakila. |
+| The **second** lightning bolt — has a small text cursor beside it | Runs **only the one command your cursor is sitting in** | Running a single query you just typed |
+
+If you use the second one on the Sakila files, MySQL runs one command out of hundreds, reports success, and you are left with a broken half-built database that *looks* like it worked.
+
+> ### The reliable way: use the menu instead
+>
+> If you are not confident about which icon is which, **ignore the icons completely** and use the menu. It is unambiguous and does exactly the same thing:
+>
+> **Query → Execute (All or Selection)**
+>
+> Or the keyboard shortcut:
+>
+> - **Windows:** `Ctrl + Shift + Enter`
+> - **Mac:** `⌘ + Shift + Enter`
+>
+> Note the **Shift**. Without it, you get the one-command-only version — the same trap as the wrong icon.
+
+One more thing: **make sure no text is highlighted** in the editor before you run. If part of the file is selected, Workbench runs only the selected part. Click once in the editing area and press `Ctrl + A` / `⌘ + A` then click once more to deselect, or simply click somewhere in the text without dragging.
+
+## "The lightning bolt is greyed out and I can't click it"
+
+This is common, and it is not a broken installation. A greyed-out Execute button means Workbench has **nothing to run the file against**. Work down this list.
+
+### 1. You're not actually connected (most likely)
+
+**Opening a `.sql` file does not connect you to the database.** It's easy to open Workbench, open the Sakila file, and never realise you skipped the connection step — the file looks perfectly normal on screen, but every Execute control stays grey.
+
+To fix it:
+
+1. Click the **Home** tab — the small house icon in the top-left corner of the window.
+2. Click your connection box (**Local instance**, or whatever you named it).
+3. Enter your **root password** if asked.
+4. Now go back to your SQL file's tab. The lightning bolts should be coloured and clickable.
+
+If your file's tab has closed, just open it again with **File → Open SQL Script…**
+
+### 2. The connection dropped while you weren't looking
+
+Workbench disconnects after a period of inactivity, and a long download or a laptop that went to sleep will do it. The tab stays open and looks fine, but it is no longer attached to anything.
+
+Fix: **Query → Reconnect to Server**. Enter your password if prompted.
+
+### 3. Something is already running
+
+While a script is executing, Workbench **deliberately greys out the Execute buttons** so you can't start a second run on top of the first.
+
+`sakila-data.sql` takes up to a minute, so this is expected. Tell-tale signs:
+
+- The red **Stop** button is the one control that *is* clickable
+- There's a progress indicator or spinning cursor
+- The window may look frozen or washed out
+
+**Just wait.** Don't click anything. When it finishes, the buttons come back.
+
+### 4. You're not on a SQL editor tab
+
+Execute only exists for query tabs. If you opened `sakila.mwb` (the diagram file) or you're sitting on the **Home** or **Administration** tab, there's nothing to execute and the controls stay grey.
+
+A real SQL editor tab has a **white editing area** with an **Action Output** panel beneath it. If you don't see those two things, you're on the wrong tab.
+
+> **Quick check:** if **Query → Execute (All or Selection)** is also greyed out in the menu, the problem is the connection (cause 1 or 2). If the menu item works but the toolbar icon looks grey, you were probably just looking at the wrong icon.
+
 ## Step 3 — Run the schema file (builds the tables)
 
 1. Open **MySQL Workbench** and connect as usual.
 2. From the menu, choose **File → Open SQL Script…**
 3. Find your `sakila-db` folder and open **`sakila-schema.sql`**.
 4. A tab opens full of commands. **You do not need to read or understand them.**
-5. Click the **lightning bolt** icon to run the whole file.
-6. Wait a few seconds. You'll see a list of green ticks at the bottom.
+5. Check that **nothing in the file is highlighted**.
+6. Run the whole file: **Query → Execute (All or Selection)** — or `Ctrl + Shift + Enter` (Windows) / `⌘ + Shift + Enter` (Mac).
+7. Wait a few seconds.
 
-This creates the database and its empty tables.
+**How to tell it worked:** at the bottom of the window is a panel called **Action Output**. It fills with one row per command. You want **green ticks** all the way down. A **red error symbol** on any row means something went wrong — note the message on that row and check *Common Sakila problems* at the end of this Part.
+
+You should see roughly 45–50 rows. **If you only see one or two rows, you used the wrong lightning bolt** — go back and run it again using the menu.
+
+This creates the database and its empty tables. It does not yet contain any data.
 
 ## Step 4 — Run the data file (fills in the information)
 
 1. Choose **File → Open SQL Script…** again.
 2. This time open **`sakila-data.sql`**.
-3. Click the **lightning bolt** icon.
-4. **This one takes longer** — anywhere from 10 seconds to about a minute. Workbench may look frozen while it works. Let it finish.
+3. Again, check that **nothing is highlighted**.
+4. Run it the same way: **Query → Execute (All or Selection)** — or `Ctrl + Shift + Enter` / `⌘ + Shift + Enter`.
+5. **This one takes longer** — anywhere from 10 seconds to about a minute. Workbench may look frozen or greyed-out while it works. This is normal. Let it finish.
+
+Again, check the **Action Output** panel for green ticks when it's done.
 
 > ### The order matters
 >
@@ -535,7 +616,9 @@ This creates the database and its empty tables.
 2. Click the small refresh arrow (⟳) at the top of that panel.
 3. **`sakila`** should now appear in the list.
 
-Now prove it has data in it. Click into a query tab, type this, and hit the lightning bolt:
+Now prove it has data in it. Click into a query tab and type this.
+
+**This is two commands, so you must run it with Query → Execute (All or Selection)** (`Ctrl + Shift + Enter` / `⌘ + Shift + Enter`). The single-command bolt would run only the first line.
 
 ```
 USE sakila;
@@ -576,7 +659,7 @@ You ran the data file before the schema file. Run `sakila-schema.sql` first, the
 
 **"Error Code: 1046. No database selected"**
 
-You probably ran only a highlighted piece of the file rather than the whole thing. Make sure nothing is selected in the editor, then click the lightning bolt again. (Workbench runs only the highlighted text if you have some highlighted.)
+You probably ran only a highlighted piece of the file rather than the whole thing. Make sure nothing is highlighted in the editor, then run it again with **Query → Execute (All or Selection)**. Workbench runs only the highlighted text if any text is highlighted — and only the command under your cursor if you used the second lightning bolt.
 
 **"Unknown database 'sakila'"**
 
@@ -597,7 +680,17 @@ Click the refresh arrow (⟳) at the top of the Schemas panel. Workbench doesn't
 
 **Everything ran but `SELECT COUNT(*) FROM film;` returns 0**
 
-The schema loaded but the data didn't. Run `sakila-data.sql` again and watch the bottom panel for errors.
+The schema loaded but the data didn't. Run `sakila-data.sql` again and watch the **Action Output** panel for errors.
+
+**The lightning bolt / Execute menu item is greyed out**
+
+You're not connected to the server. Click the **Home** tab (house icon, top-left), click your connection, enter your root password, then return to the file's tab. See *"The lightning bolt is greyed out"* earlier in this Part for the other causes.
+
+**It said "1 row(s) affected" and finished instantly**
+
+You used the **second** lightning bolt (or `Ctrl + Enter` without Shift), which runs only the single command your cursor is in. Run the file again with **Query → Execute (All or Selection)**.
+
+This is the most common Sakila mistake, and the most misleading one — it reports success, so nothing looks wrong until a query fails later. If you're unsure whether it happened to you, just run both files again with the menu. Re-running is always safe.
 
 ## Optional: see the database as a diagram
 
@@ -761,7 +854,7 @@ Harmless. Ignore it. Writing and running queries works normally.
 
 1. Open **MySQL Workbench**
 2. Click your connection (**Local instance** / **Local**)
-3. Type your commands and click the lightning bolt icon
+3. Type your commands and run them with **Query → Execute (All or Selection)** (`Ctrl + Shift + Enter` / `⌘ + Shift + Enter`)
 
 **Does the database need to be turned on first?** Normally no — it's set to start automatically when your laptop starts. If you get a connection error, turn it on using the instructions under *"Can't connect to MySQL server"* above.
 
