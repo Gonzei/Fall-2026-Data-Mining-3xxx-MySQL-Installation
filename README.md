@@ -6,7 +6,7 @@ experience — no jargon assumed, and every step spelled out.
 
 ---
 
-## 📄 Get the guide
+## Get the guide
 
 | Format | Link | Best for |
 |---|---|---|
@@ -17,7 +17,7 @@ Both contain exactly the same material.
 
 ---
 
-## ⬇️ Software download links
+## Software download links
 
 These are the two programs you need. **Both links start the download
 immediately** — you do **not** need to create an Oracle account.
@@ -51,7 +51,7 @@ rebuilds a clean one automatically. Part 4 of the guide covers this.
 
 ---
 
-## ⚠️ Two things to know before you start
+## Two things to know before you start
 
 **1. You will create a password during setup. Write it down.**
 The installer asks you to make up a password for the "root" account. It is not
@@ -66,7 +66,7 @@ expected and completely harmless — Workbench 8.0.47 is simply older than Serve
 
 ---
 
-## 🛟 If you get stuck
+## If you get stuck
 
 Getting stuck is normal — installing a database is genuinely fiddly, and
 experienced programmers hit these same errors.

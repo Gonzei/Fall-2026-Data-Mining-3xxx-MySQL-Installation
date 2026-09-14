@@ -75,7 +75,7 @@ Your instructor has specified these versions. Match them.
 
 ## Read this before you do anything else
 
-> ## ⚠️ THE #1 THING PEOPLE GET WRONG
+> ## THE #1 THING PEOPLE GET WRONG
 >
 > During setup you will be asked to **create a password for the "root" account**. This is a brand-new password that you make up on the spot. It is **not** your laptop password, not your school password, and not your email password.
 >
@@ -106,10 +106,10 @@ You will see the word **Community** on almost everything you download. That is c
 
 "MySQL Community" is also used as a **family name** for a group of free products released together:
 
-- **MySQL Community Server** — the database itself ✅ *you need this*
-- **MySQL Workbench** — the graphical design and administration tool ✅ *you need this*
-- **MySQL Shell** — an advanced text-only command-line tool ❌ *not needed*
-- **Connectors** (Connector/J, Connector/Python, Connector/NET) — plumbing that lets programs written in Java, Python, or C# talk to MySQL ❌ *not needed yet*
+- **MySQL Community Server** — the database itself — **you need this**
+- **MySQL Workbench** — the graphical design and administration tool — **you need this**
+- **MySQL Shell** — an advanced text-only command-line tool — *not needed for this course*
+- **Connectors** (Connector/J, Connector/Python, Connector/NET) — plumbing that lets programs written in Java, Python, or C# talk to MySQL — *not needed yet*
 
 So when someone says "install MySQL Community," they mean: install the free edition — specifically the Server and Workbench.
 
@@ -325,7 +325,7 @@ uname -m
 
 Can't check right now? Macs sold from **late 2020 onwards** are almost all Apple Silicon (ARM). Macs from **2019 and earlier** are Intel (x86). Use this only as a sanity check — always confirm with Method 1 or 2 before downloading.
 
-> ✍️ **Write your answer down before continuing:** my Mac is **ARM** / **x86** (circle one)
+> **Write your answer down before continuing:** my Mac is **ARM** / **x86** (circle one)
 
 ### What if I download the wrong one?
 
@@ -443,7 +443,7 @@ Do this on both Windows and Mac. It takes one minute and proves everything is in
 SELECT VERSION();
 ```
 
-3. Click the **lightning bolt** icon (⚡) above the box. Or press **Ctrl + Enter** on Windows, **⌘ + Enter** on Mac.
+3. Click the **lightning bolt** icon above the box. Or press **Ctrl + Enter** on Windows, **⌘ + Enter** on Mac.
 4. A **Result Grid** appears at the bottom showing a version number, such as `26.7.0`.
 
 **If you see a version number, your installation is complete and working.** Congratulations.
@@ -474,7 +474,7 @@ Installing MySQL gives you a working but **completely empty** database. Sakila i
 
 It contains the records of a fictional DVD rental business — films, actors, customers, staff, stores, rentals, and payments. About 1,000 films and 16,000 rentals, all realistic enough to write genuine queries against.
 
-> ## ✅ You can do this at any time
+> ## You can do this at any time
 >
 > **Adding Sakila is completely separate from installing MySQL.** You do not need to reinstall anything, and you do not need to have done this during setup.
 >
@@ -501,7 +501,7 @@ You'll get a folder called **`sakila-db`** containing three files:
 | `sakila-data.sql` | Fills those tables with the data — **run this second** |
 | `sakila.mwb` | An optional diagram of the database (see the end of this Part) |
 
-> ⚠️ **Windows users:** you must actually extract the folder. Windows lets you double-click *into* a `.zip` and open files without unzipping, and doing that here causes confusing failures later. If the window you're looking at still says "Compressed Folder," extract it first.
+> **Windows users:** you must actually extract the folder. Windows lets you double-click *into* a `.zip` and open files without unzipping, and doing that here causes confusing failures later. If the window you're looking at still says "Compressed Folder," extract it first.
 
 **Remember where you put the folder.** You'll need to find it twice in a moment.
 
@@ -511,7 +511,7 @@ You'll get a folder called **`sakila-db`** containing three files:
 2. From the menu, choose **File → Open SQL Script…**
 3. Find your `sakila-db` folder and open **`sakila-schema.sql`**.
 4. A tab opens full of commands. **You do not need to read or understand them.**
-5. Click the **lightning bolt** (⚡) to run the whole file.
+5. Click the **lightning bolt** icon to run the whole file.
 6. Wait a few seconds. You'll see a list of green ticks at the bottom.
 
 This creates the database and its empty tables.
@@ -520,10 +520,10 @@ This creates the database and its empty tables.
 
 1. Choose **File → Open SQL Script…** again.
 2. This time open **`sakila-data.sql`**.
-3. Click the **lightning bolt** (⚡).
+3. Click the **lightning bolt** icon.
 4. **This one takes longer** — anywhere from 10 seconds to about a minute. Workbench may look frozen while it works. Let it finish.
 
-> ### 🔑 The order matters
+> ### The order matters
 >
 > **Schema first, then data.** Always.
 >
@@ -564,7 +564,7 @@ The schema file begins by deleting any existing copy of `sakila` and building a 
 
 That's the whole procedure. There's nothing to uninstall, and no leftovers to clean up — you end up with a clean, correct copy every time.
 
-> ⚠️ **Resetting erases anything you changed inside `sakila`.** If you've done coursework that modified the data, and you need it, save a copy first or check with your instructor.
+> **Resetting erases anything you changed inside `sakila`.** If you've done coursework that modified the data, and you need it, save a copy first or check with your instructor.
 >
 > Your own **query files** are not affected — those are `.sql` files saved on your computer, entirely separate from the database. Resetting Sakila never touches them.
 
@@ -616,7 +616,7 @@ In Workbench, choose **File → Open Model…** and pick `sakila.mwb`.
 Work down this list. It resolves the large majority of problems, and none of it can do any harm.
 
 1. **Read the error message all the way through.** It usually says exactly what's wrong in plain-ish English. See *How to read an error message* below.
-2. **Close the program completely and open it again.** Not minimize — quit it. (Windows: the ✕ button. Mac: **⌘ + Q**, because closing the window doesn't quit a Mac app.)
+2. **Close the program completely and open it again.** Not minimize — quit it. (Windows: the X button in the corner. Mac: **⌘ + Q**, because closing the window doesn't quit a Mac app.)
 3. **Restart your laptop.** Genuinely. Half-finished installs are extremely common and a restart clears them.
 4. **Check the Server is actually running** — see *"Can't connect to MySQL server"* below. An enormous share of "Workbench is broken" reports are just the Server being switched off.
 5. **Try the step again from the beginning.** Re-running an installer is safe. It will not duplicate anything or corrupt what's there.
@@ -761,7 +761,7 @@ Harmless. Ignore it. Writing and running queries works normally.
 
 1. Open **MySQL Workbench**
 2. Click your connection (**Local instance** / **Local**)
-3. Type your commands and click the lightning bolt (⚡)
+3. Type your commands and click the lightning bolt icon
 
 **Does the database need to be turned on first?** Normally no — it's set to start automatically when your laptop starts. If you get a connection error, turn it on using the instructions under *"Can't connect to MySQL server"* above.
 
